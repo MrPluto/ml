@@ -25,11 +25,11 @@ m_test = test_set_x_orig.shape[0]
 num_px = train_set_x_orig.shape[1]
 
 #reshape , an image is a vector (64,64,3) => (64*64*3,1)
-train_set_x_flattern = train_set_x_orig.reshape(train_set_x_orig.shape[0],-1).T # equal to reshape(a,b*c*d)
+train_set_x_flattern = train_set_x_orig.reshape(train_set_x_orig.shape[0],-1).T # equal to reshape(a,b*c*d).T
 test_set_x_flattern = test_set_x_orig.reshape(test_set_x_orig.shape[0],-1).T
 #should be shape (b*c*d,a)
 
-#standardize dataset, for image, just divide 255 cause this is the maximum value
+#standardize dataset, for image, just divide 255 cause this is the maximum value for color
 train_set_x = train_set_x_flattern / 255.
 test_set_x = test_set_x_flattern / 255.
 
