@@ -44,9 +44,11 @@ def sigmoid(z):
 def initialize_with_zeros(dim):
     '''
     This create a vector of zeros of shape(dim,1) for w and initializes b to 0
-    Notice: maybe we should not initial zero cause it may cause semmetry problem
+    Notice: semmetry problem
             we can initializes with a random small value instead of zeros
-            small value for better gradient descent
+            small value for better gradient descent.
+            logistic regression has no semmetry problem
+            cause they have no hidden layer and dw according to input x
     '''
     w = np.zeros(shape=(dim,1)) #np.random.rand(dim,1) * 0.01
     b = 0
