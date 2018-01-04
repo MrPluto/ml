@@ -91,3 +91,6 @@ def compute_cost_with_regularization(A3,Y,parameters,lambd):
     cost = cross_entropy_cost + L2_regu_cost
 
     return cost
+
+def backward_propagation_with_regularization(X,Y,cache,lambd):
+    pass
