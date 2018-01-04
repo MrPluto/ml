@@ -5,6 +5,13 @@
 # 2: increase the odds of gradient descent converging to lowe training (and generalization) error
 
 
+# TLDR
+# different initializations lead to different results
+# random initialization is used to break symmetry and make sure different hidden units can learn different things
+# Dont initialize to values that are too large (for fast gradient descent)
+# 'He' initialize works well for networks with ReLU activations (also check xaiver initialize for tanh function)
+# https://www.leiphone.com/news/201703/3qMp45aQtbxTdzmK.html
+
 import numpy as np
 import matplotlib.pyplot as plt
 import sklearn
