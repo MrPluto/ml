@@ -1,11 +1,5 @@
 # -*- coding: utf-8 -*-
 
-#TLDR:
-# SGD ( Stochastic Gradient Descent )  just one training example. ( check mini-batch gradient descent)
-
-# batch GD
-
-
 import numpy as np
 import matplotlib.pyplot as plt
 import scipy.io
@@ -25,11 +19,11 @@ def update_parameters_with_gd(parameters,grads,learning_rate):
     '''
     '''
 
-    layers = len(parameters) // 2 # one couple of w and b respect one layer
+    L = len(parameters) // 2 # one couple of w and b respect one layer
 
-    for layer in range(layers):
-        parameters['W' + str( layer + 1 )] = parameters['W' + str( layer + 1 )] - learning_rate * grads['dW' + str( layer + 1 )]
-        parameters['b' + str( layer + 1 )] = parameters['b' + str( layer + 1 )] - learning_rate * grads['db' + str( layer + 1 )]
+    for l in range(L):
+        parameters['W' + str( l + 1 )] = parameters['W' + str( l + 1 )] - learning_rate * grads['dW' + str( l + 1 )]
+        parameters['b' + str( l + 1 )] = parameters['b' + str( l + 1 )] - learning_rate * grads['db' + str( l + 1 )]
         pass
 
     return parameters
@@ -65,6 +59,20 @@ def random_mini_batches(X,Y,mini_batch_size=64,seed=0):
         pass
     return mini_batches
 
+
+def initialize_parameters_he(layers_dims):
+    np.random.seed(3)
+    parameters = {}
+    length = len(layers_dims)
+
+    for l in range(1,length):
+        # https://www.leiphone.com/news/201703/3qMp45aQtbxTdzmK.html
+        heScalar = np.sqrt(2 / layers_dims[l - 1]) # similar to xavier initialization which is np.sqrt(1 / layers_dims[l - 1])
+
+        parameters['W' + str(l)] = np.random.randn(layers_dims[l],layers_dims[l-1]) * 10
+        parameters['b' + str(l)] = np.random.randn(layers_dims[l],1)
+        pass
+    return parameters
 
 def initialize_velocity(parameters):
     length = len(parameters) // 2
@@ -110,7 +118,7 @@ def initialize_adam(parameters):
     return v, s
 
 
-def update_parameters_with_adam(parameters,grads,s,v,t,learning_rate=0.01,beta1=0.9,beta2=0.999,epsilion=1e-8):
+def update_parameters_with_adam(parameters,grads,v,s,t,learning_rate=0.01,beta1=0.9,beta2=0.999,epsilon=1e-8):
 
     L = len(parameters) // 2                 # number of layers in the neural networks
     v_corrected = {}                         # Initializing first moment estimate, python dictionary
@@ -165,6 +173,7 @@ def model(X, Y, layers_dims, optimizer, learning_rate=0.0007, mini_batch_size=64
 
     # Initialize the optimizer
     if optimizer == "gd":
+        # parameters = initialize_parameters_he(layers_dims)
         pass # no initialization required for gradient descent
     elif optimizer == "momentum":
         v = initialize_velocity(parameters)
@@ -207,6 +216,9 @@ def model(X, Y, layers_dims, optimizer, learning_rate=0.0007, mini_batch_size=64
             print("Cost after epoch %i: %f" % (i, cost))
         if print_cost and i % 100 == 0:
             costs.append(cost)
+
+        # if i == 5:
+        #     break
 
     # plot the cost
     plt.plot(costs)
