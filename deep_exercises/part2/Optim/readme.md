@@ -1,3 +1,5 @@
+[总结](http://blog.csdn.net/Asun0204/article/details/78131609)
+
 **What you should remember**:
 - The difference between Gradient Descent, mini-batch Gradient Descent and stochastic Gradient Descent is the number of examples you use to perform one update step.
 - You have to tune a learning rate hyperparameter **a(阿尔法)**
