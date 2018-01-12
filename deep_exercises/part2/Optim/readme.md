@@ -1,5 +1,7 @@
 [总结](http://blog.csdn.net/Asun0204/article/details/78131609)
 
+[Overview](http://ruder.io/optimizing-gradient-descent/index.html)
+
 **What you should remember**:
 - The difference between Gradient Descent, mini-batch Gradient Descent and stochastic Gradient Descent is the number of examples you use to perform one update step.
 - You have to tune a learning rate hyperparameter **a(阿尔法)**
@@ -28,9 +30,12 @@ if mini-batch size between (1,m), =>
 ##### features
 - never converge, always kind of oscillate and wander around the region of the minimum
 - lose all your speed up from vertorization ( matrix calculate )
+- decrease the learning_rate slowly,SGD shows the same convergence behavior like batch GD
 
 ### Optimization method
 #### Momentum
+
+> The momentum term increases for dimensions whose gradients point in the same directions and reduces updates for dimensions whose gradients change directions. As a result, we gain faster convergence and reduced oscillation
 
 ##### Formula
 V(dW)t = beta1 * V(dW)t + (1 - beta1) * dW
@@ -42,7 +47,7 @@ V(db)t = beta1 * V(db)t + (1 - beta1) * db
 b = b - learning_rate * V(db)t
 
 ##### notes
-- The velocity is initialized with zeros. So the algorithm will take a few iterations to "build up" velocity and start to take bigger steps.
+- The velocity is initialized with zeros. So the algorithm will take a few iterations to "build up" velocity and start to take bigger steps. (or see **V(dW)t_corrected = V(dW)t / (1 - beta ^ t)**)
 - `beta` = `0`, means normal Graident Descent
 - the large beta, the smoother the update. (about 1/(1-beta), see Exponentially Weighted Averages)
 
